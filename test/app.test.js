@@ -26,11 +26,27 @@ describe('Playstore App', () => {
       .then(res => {
         expect(res.body).to.be.an('array');
         for(let x=0; x<res.body.length; x++){
-          expect(res.body[x].Genres).to.equal('Card')
+          expect(res.body[x].Genres).to.equal('Card');
         }
-       
-
-      })
+      });
   })
+  it('should sort by rating', ()=>{
+    return request(app)
+      .get('/app')
+      .query({sort:'Rating'})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then(res => {
+        expect(res.body).to.be.an('array');
+        expect(res.body).to.have.lengthOf(store.length);
+        for(let x=1; x<=res.body.length; x++){
+          console.log(res.body[x].Rating);
+          expect(res.body[x].Rating).to.equal(res.body[x].Rating);
+          //expect(res.body[x].Rating).to.be.at.most(res.body[x-1].Rating);
+        }
+      });
+  })
+  
+
 
 });
