@@ -39,10 +39,8 @@ describe('Playstore App', () => {
       .then(res => {
         expect(res.body).to.be.an('array');
         expect(res.body).to.have.lengthOf(store.length);
-        for(let x=1; x<=res.body.length; x++){
-          console.log(res.body[x].Rating);
-          expect(res.body[x].Rating).to.equal(res.body[x].Rating);
-          //expect(res.body[x].Rating).to.be.at.most(res.body[x-1].Rating);
+        for(let x=1; x<res.body.length; x++){
+          expect(res.body[x].Rating).to.be.at.most(res.body[x-1].Rating);
         }
       });
   })
